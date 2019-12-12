@@ -2,12 +2,12 @@ import {getManager, Repository} from 'typeorm';
 import {DefaultAnswer} from '../model/default_answer';
 import uniqd from 'uniqid';
 
-interface IDefaultAnswerRepository {
+interface DefaultAnswerRepositoryInterface {
     get(advertId: string): Promise<DefaultAnswer | undefined>;
     set(obj: DefaultAnswer): Promise<DefaultAnswer>;
 }
 
-export class DefaultAnswerRepository implements IDefaultAnswerRepository  {
+export class DefaultAnswerRepository implements DefaultAnswerRepositoryInterface  {
     repo: Repository<DefaultAnswer>;
 
     constructor(repo?: Repository<DefaultAnswer> | null) {
@@ -23,6 +23,7 @@ export class DefaultAnswerRepository implements IDefaultAnswerRepository  {
         
         // create new object if doesn't exist
         if(!answer) {
+            // eslint-disable-next-line require-atomic-updates
             obj.id = uniqd();
             return await this.repo.save(obj);
         }

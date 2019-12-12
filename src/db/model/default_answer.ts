@@ -26,7 +26,7 @@ export class DefaultAnswer {
     advertId!: string;
 
     @Column({
-        type: "enum",
+        type: 'enum',
         enum: Type,
         default: Type.DEFAULT
     })
